@@ -1,0 +1,94 @@
+<Ui xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="Libs\LibStub\LibStub.lua" />
+	<Include file="Libs\CallbackHandler-1.0\CallbackHandler-1.0.xml" />
+	<Include file="Libs\AceAddon-3.0\AceAddon-3.0.xml" />
+	<Include file="Libs\AceConsole-3.0\AceConsole-3.0.xml" />
+	<Include file="Libs\AceEvent-3.0\AceEvent-3.0.xml" />
+
+	<Frame name="MainFrame" inherits="BackdropTemplate" hidden="true">
+		<Size x="600" y="400" />
+		<Anchors>
+			<Anchor point="CENTER"></Anchor>
+		</Anchors>
+        <KeyValues>
+			<KeyValue key="backdropInfo" value="BACKDROP_DIALOG_32_32" keyType="string" type="global" />
+		</KeyValues>
+		<Frames>
+			<EditBox name="SearchBox" inherits="InputBoxTemplate">
+				<Size x="200" y="40" />
+				<Anchors>
+					<Anchor y="-10" point="TOP" />
+				</Anchors>
+			</EditBox>
+
+			<Frame name="FirstPicFrame" enableMouse="true">
+			<Size x="120" y="80" />
+			<Anchors>
+				<Anchor x="10" point="LEFT" />
+			</Anchors>
+			<Scripts>
+				<OnMouseDown>
+					Testcase1:Selection("FirstPic")
+				</OnMouseDown>
+			</Scripts>
+				<Layers>
+					<Layer>
+						<Texture name="FirstPic" file="Interface/Addons/Testcase1/resources/placeholder">
+							<Size x="120" y="80"/>
+							<Anchors>
+								<Anchor point="CENTER"/>
+							</Anchors>
+						</Texture>
+					</Layer>
+				</Layers>
+			</Frame>
+			<Frame name="FirstPicFrame" enableMouse="true">
+			<Size x="120" y="80" />
+			<Anchors>
+				<Anchor x="-10" point="RIGHT" />
+			</Anchors>
+			<Scripts>
+				<OnMouseDown>
+					Testcase1:Selection("SecondPic")
+				</OnMouseDown>
+			</Scripts>
+				<Layers>
+					<Layer>
+						<Texture name="SecondPic" file="Interface/Addons/Testcase1/resources/placeholder">
+							<Size x="120" y="80"/>
+							<Anchors>
+								<Anchor point="CENTER"/>
+							</Anchors>
+						</Texture>
+					</Layer>
+				</Layers>
+			</Frame>
+            <Button name="CloseButton" inherits="UIPanelButtonTemplate">
+				<Size x="30" y="30" />
+				<Anchors>
+					<Anchor point="TOPRIGHT" />
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						MainFrame:Hide()
+					</OnClick>
+				</Scripts>
+			</Button>
+        
+
+            <Button name="ChangeButton" inherits="UIPanelButtonTemplate" text="ChangeIcon">
+				<Size x="100" y="30" />
+				<Anchors>
+					<Anchor y="30" point="BOTTOM" />
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						Testcase1:Search()
+					</OnClick>
+				</Scripts>
+			</Button>
+
+
+        </Frames>
+	</Frame>
+</Ui>
