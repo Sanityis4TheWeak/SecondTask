@@ -11,22 +11,29 @@ function Testcase1:ShowFrame()
 end
 
 
-function Testcase1:Search()
-    local FirstPart = "Interface/ICONS/"
-    local SecondPart = SearchBox:GetText()
-    local ImagePath = (FirstPart .. SecondPart )
-    Testcase1:ChangeImage(ImagePath)
+function Testcase1:InputText(self)
+    local prefix = "Interface/ICONS/"
+    local postfix = MainFrame.searchBox:GetText()
+    local path_to_change = (prefix .. postfix)
+    Testcase1:ChangeImage(path_to_change)
+    
 end
 
-
-function Testcase1:Selection(TextureName)
-    _G.selector = _G[TextureName]
-    self:Print("Picked")
+function Testcase1:IsSelected(self)
+    selector = self
+    print("Selected", selector)
 end
 
+function Testcase1:ChangeImage(path_to_change)
+    selector:SetTexture(path_to_change)
+    selector:Show()
+end
 
-function Testcase1:ChangeImage(ImagePath)
-    local texture = _G.selector
-    texture:SetTexture(ImagePath)
-    texture:Show()
+function Testcase1:GenerateTooltips(self)
+    local pictureId = self:GetTexture()
+    GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
+    GameTooltip:AddLine(pictureId)
+    GameTooltip:Show()
+
+
 end
