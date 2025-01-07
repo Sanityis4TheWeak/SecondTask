@@ -5,6 +5,24 @@
 	<Include file="Libs\AceConsole-3.0\AceConsole-3.0.xml" />
 	<Include file="Libs\AceEvent-3.0\AceEvent-3.0.xml" />
 
+	<Texture name="trainingTextureTemplate" file="Interface/Addons/Testcase1/resources/placeholder" virtual="true">
+		<Size x="200" y="200" />
+		<Anchors>
+		<Anchor point="CENTER"/>
+		</Anchors>
+		<Scripts>
+			<OnEnter>
+				GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
+				GameTooltip:AddLine("This is testcase")
+				GameTooltip:AddLine("Same")
+				GameTooltip:Show()
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide()
+			</OnLeave>
+		</Scripts>
+	</Texture>
+
 	<Frame name="MainFrame" inherits="BackdropTemplate" parent="UIParent" hidden="true">
 		<Size x="900" y="600"/>
 		<Anchors>
@@ -13,29 +31,37 @@
 		 <KeyValues><KeyValue key="backdropInfo" value="BACKDROP_DIALOG_32_32" keyType="string" type="global" /></KeyValues>
 		<Layers>
 			<Layer level="ARTWORK">
-			
-				<Texture parentKey="firstPicture" file="Interface/Addons/Testcase1/resources/placeholder"><Size x="240" y = "160"/><Anchors><Anchor point='LEFT' x="80"/></Anchors>
-				<Scripts><OnMouseDown>Testcase1:IsSelected(self)</OnMouseDown><OnEnter>Testcase1:GenerateTooltips(self)</OnEnter></Scripts>
+				<Texture parentKey="FirstPic" inherits="trainingTextureTemplate">
+				<Anchors>
+					<Anchor point="LEFT" x="15"/>
+				</Anchors>
 				</Texture>
-				<Texture parentKey="secondPicture" file="Interface/Addons/Testcase1/resources/placeholder"><Size x="240" y = "160"/><Anchors><Anchor point='RIGHT' x="-80"/></Anchors>
-				<Scripts><OnMouseDown>Testcase1:IsSelected(self)</OnMouseDown><OnEnter>Testcase1:GenerateTooltips(self)</OnEnter></Scripts>
-				</Texture>
+			<Texture parentKey="SecondPic" inherits="trainingTextureTemplate">
+				<Anchors>
+					<Anchor point="RIGHT" x="-15"/>
+				</Anchors>
+			</Texture>
+
+			<Texture parentKey="SecondPic" inherits="trainingTextureTemplate">
+			</Texture>
+
 			</Layer>
 		</Layers>
-
 		<Frames>
-		
-			<EditBox parentKey="searchBox" inherits="InputBoxTemplate"><Size y="200" x="400"/><Anchors><Anchor y="-10" point="TOP"/></Anchors></EditBox>
-			<Button name="$parentSearchButton" inherits="UIPanelButtonTemplate" text="Change"><Size x="80" y="30"/><Anchors><Anchor y="20" point="BOTTOM"/></Anchors>
-			<Scripts><OnClick>Testcase1:InputText(self)</OnClick></Scripts>
-			</Button>
-			<Button name="$parentCloseButton" inherits="UIPanelButtonTemplate"><Size x="30" y="30"/><Anchors><Anchor point="TOPRIGHT"/></Anchors>
-			<Scripts><OnClick>MainFrame:Hide()</OnClick></Scripts>
+			<Button name="$parentCloseButton" inherits="UIPanelButtonTemplate">
+			<Size x="30" y="30"/>
+			<Anchors>
+				<Anchor point="TOPRIGHT"/>
+			</Anchors>
+			<Scripts>
+				<OnClick>
+					MainFrame:Hide()
+				</OnClick>
+			</Scripts>
 			</Button>
 
 		</Frames>
-	
-	
+
 	</Frame>
 
 </Ui>
