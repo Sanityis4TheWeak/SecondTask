@@ -1,0 +1,56 @@
+<Ui xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="Libs\LibStub\LibStub.lua" />
+	<Include file="Libs\CallbackHandler-1.0\CallbackHandler-1.0.xml" />
+	<Include file="Libs\AceAddon-3.0\AceAddon-3.0.xml" />
+	<Include file="Libs\AceConsole-3.0\AceConsole-3.0.xml" />
+	<Include file="Libs\AceEvent-3.0\AceEvent-3.0.xml" />
+
+    <!-- TEMPLATES -->
+
+
+    <Font name="MyFont" inherits="SystemFont_Med1" virtual="true">
+        <FontHeight>
+        <AbsValue val="12"/>
+        </FontHeight>
+   </Font>
+
+	<Texture name="Friends_Item_Template" atlas="CircleMask" virtual="true">
+		<Size x="30" y="30"/>
+		<Anchors><Anchor point="TOPLEFT"/></Anchors>
+	</Texture>
+
+	<Frame name="ContextItemTemplate" virtual="true">
+		<Size x="20" y="20"/>
+		<Layers>
+			<Layer>
+				<FontString parentKey='Text' text="PLACE" inherits="GameFontNormalLarge"/>
+			</Layer>
+		</Layers>
+	</Frame>
+	<Frame name="HeaderItemTemplate" virtual="true">
+		<Size x="200" y="20"/>
+		<Layers>
+			<Layer>
+				<FontString parentKey='Text' text="PLACE" inherits="MyFont"/>
+				<Texture atlas="minimal-scrollbar-arrow-bottom-over"><Size x="10" y="10"/><Anchors><Anchor point="LEFT" relativeKey="$parent.Text" relativePoint="RIGHT" x="5"/></Anchors></Texture>
+			</Layer>
+		</Layers>
+	</Frame>
+		<!-- <Frame name="HeaderItemTemplate" virtual="true">
+		<Size x="200" y="20"/>
+		<Layers>
+			<Layer>
+				<FontString parentKey='Text' text="PLACE" inherits="MyFont"/>
+				<Texture atlas="minimal-scrollbar-arrow-bottom-over"><Size x="10" y="10"/><Anchors><Anchor point="LEFT" relativeKey="$parent.Text" relativePoint="RIGHT" x="5"/></Anchors></Texture>
+			</Layer>
+		</Layers>
+	</Frame> -->
+	<Frame name="BreadcrumbsItemTemplate" virtual="true">
+		<Size x="20" y="20"/>
+		<Layers>
+			<Layer>
+				<FontString parentKey='Text' text="PLACE" inherits="MyFont"/>
+			</Layer>
+		</Layers>
+	</Frame>
+</UI>

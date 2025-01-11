@@ -3,37 +3,41 @@ Testcase1 = LibStub("AceAddon-3.0"):NewAddon("Testcase1", "AceConsole-3.0", "Ace
 function Testcase1:OnInitialize()
 	self:RegisterChatCommand("testcase", "ShowFrame")
 	self:RegisterChatCommand("tc", "ShowFrame")
+    self:RegisterChatCommand("tp", "ShowFrame")
     self:Print("Testcase is work")
 end
 
 function Testcase1:ShowFrame()
     MainFrame:Show()
-end
+    MainFrame.Header.FAQ.Text:SetText("FAQ")
+    MainFrame.Header.MAIN.Text:SetText("ОСНОВНОЕ")
+    MainFrame.Header.Community.Text:SetText("СООБЩЕСТВО")
+    MainFrame.Header.SBIR.Text:SetText("СИСТЕМА БОЯ И РАЗВИТИЯ")
+    MainFrame.Header.Guidelines.Text:SetText("РУКОВОДСТВА")
 
 
-function Testcase1:InputText(self)
-    local prefix = "Interface/ICONS/"
-    local postfix = MainFrame.searchBox:GetText()
-    local path_to_change = (prefix .. postfix)
-    Testcase1:ChangeImage(path_to_change)
+    MainFrame.Breadcrumbs.BreadcrumbForumThread.Text:SetText("Пользователи")
+    MainFrame.Breadcrumbs.BreadcrumbsForumThreadName.Text:SetText("SanityIs4TheWeak")
+    TextWidth = (MainFrame.Breadcrumbs.BreadcrumbForumThread.Text:GetWidth())
+    MainFrame.Breadcrumbs.BreadcrumbForumThread:SetWidth(TextWidth)
+    TextWidth = (MainFrame.Breadcrumbs.BreadcrumbsForumThreadName.Text:GetWidth())
+    MainFrame.Breadcrumbs.BreadcrumbsForumThreadName:SetWidth(TextWidth)
+
     
+
+    local TextWidth
+    TextWidth = (MainFrame.Header.FAQ.Text:GetWidth())
+    MainFrame.Header.FAQ:SetWidth(TextWidth)
+    TextWidth = (MainFrame.Header.MAIN.Text:GetWidth())
+    MainFrame.Header.MAIN:SetWidth(TextWidth)
+    TextWidth = (MainFrame.Header.Community.Text:GetWidth())
+    MainFrame.Header.Community:SetWidth(TextWidth)
+    TextWidth = (MainFrame.Header.SBIR.Text:GetWidth())
+    MainFrame.Header.SBIR:SetWidth(TextWidth)
+    TextWidth = (MainFrame.Header.Guidelines.Text:GetWidth())
+    MainFrame.Header.Guidelines:SetWidth(TextWidth)
 end
 
-function Testcase1:IsSelected(self)
-    selector = self
-    print("Selected", selector)
-end
-
-function Testcase1:ChangeImage(path_to_change)
-    selector:SetTexture(path_to_change)
-    selector:Show()
-end
-
-function Testcase1:GenerateTooltips(self)
-    local pictureId = self:GetTexture()
-    GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
-    GameTooltip:AddLine(pictureId)
-    GameTooltip:Show()
 
 
-end
+
