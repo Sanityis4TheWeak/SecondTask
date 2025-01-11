@@ -26,7 +26,14 @@
 			</Layer>
 		</Layers>
 	</Frame>
-
+	<Frame name="BreadcrumbsItemTemplate" virtual="true">
+		<Size x="20" y="20"/>
+		<Layers>
+			<Layer>
+				<FontString parentKey='Text' text="PLACE" inherits="MyFont"/>
+			</Layer>
+		</Layers>
+	</Frame>
 	 <!-- MAINFRAME  -->
 	<Frame name="MainFrame" inherits="BackdropTemplate" parent="UIParent" hidden="true">
 		<Size x="1140" y="850"/>
@@ -115,30 +122,38 @@
 		<Frame parentKey="Breadcrumbs"> 
 			<Size x="1120" y="40"/> 
 			<Anchors>
-				<Anchor point="TOPLEFT" y="-80"/>
+				<Anchor point="TOPLEFT" relativeKey="$parent.Header" relativePoint="BOTTOMLEFT"/>
 			</Anchors> 
-			<Layers> 
-				<Layer level="ARTWORK"> 
-				<Texture atlas="Gamepad_Rev_Home_64"> 
-					<Size x="20" y="20"/> 
-					<Anchors>
-						<Anchor point="TOPLEFT" x="40"/>
-					</Anchors> 
-				</Texture> 
-				<FontString text="/  Пользователи  / SanityIs4TheWeak" inherits="MyFont">
-					<Size x="300" y="20"/>
-					<Anchors>
-						<Anchor point="TOPLEFT" x="30"/>
-					</Anchors>
-				</FontString>
-				<Texture atlas="Gamepad_Ltr_Menu_32"> 
-					<Size x="30" y="30"/> 
-					<Anchors>
-						<Anchor point="TOPRIGHT" x="-40"/>
-					</Anchors> 
-				</Texture> 
-				</Layer> 
-			</Layers> 
+			<Frames>
+				<Frame parentKey="HomeIcon">
+				<Size x="20" y="20"/>
+				<Anchors><Anchor point="LEFT" relativePoint="LEFT" x="20" /></Anchors>
+				<Layers>
+					<Layer>
+						<Texture atlas="Gamepad_Rev_Home_64"> </Texture> 
+					</Layer>
+				</Layers>
+				</Frame>
+				<Frame parentKey="BreadcrumbForumThread" inherits="BreadcrumbsItemTemplate">
+				<Anchors><Anchor point="LEFT" relativeKey="$parent.HomeIcon" relativePoint="RIGHT" x="20"/></Anchors>
+				</Frame>
+
+				<Frame parentKey="BreadcrumbsForumThreadName" inherits="BreadcrumbsItemTemplate">
+				<Anchors><Anchor point="LEFT" relativeKey="$parent.BreadcrumbForumThread" relativePoint="RIGHT" x="20"/></Anchors>
+				</Frame>
+
+				<Frame parentKey="BreadcrumbsMenuIcon">
+				<Size x="20" y="20"/>
+				<Anchors><Anchor point="RIGHT" x="-20" /></Anchors>
+				<Layers>
+					<Layer>
+						<Texture atlas="Gamepad_Ltr_Menu_32"> 
+							<Size x="30" y="30"/> 
+						</Texture> 
+					</Layer>
+				</Layers>
+				</Frame>
+			</Frames>		
 		</Frame>
 
 		<Frame parentKey="Body"> 
@@ -151,7 +166,6 @@
 					<Texture atlas="Azerite-CenterBG-ChannelGlowBar-Effect"> 
 						<Anchors><Anchor point="TOPLEFT" x="40"/></Anchors> 
 						<Size x="50" y="50"/> 
-						<!-- <TexCoords left="0.25" right="0.75" top="0.25" bottom="0.75" /> -->
 					</Texture> 
 					<FontString text="SanityIs4TheWeak" inherits="GameFontNormalLarge"> 
 						<Size x="200" y="50"/> 
@@ -222,6 +236,10 @@
 				</Layer> 
 
 				<Layer>
+					<Texture atlas="Azerite-CenterBG-ChannelGlowBar-Effect">
+						<Anchors><Anchor point="TOPLEFT" x="40" y="-150"/></Anchors>
+						<Size x="255" y="250"/>
+					</Texture>
 					<Texture atlas="_AnimaChannel-Channel-Line-horizontal">
 						<Size x="50" y="3"/> 
 						<Anchors> 
@@ -342,11 +360,7 @@
 			<Frames>
 				<Frame parentKey="FriendsFrame">
 					<Layers>
-						<Layer name="Body_middle">
-							<Texture atlas="Azerite-CenterBG-ChannelGlowBar-Effect">
-								<Anchors><Anchor point="TOPLEFT" x="40" y="-150"/></Anchors>
-								<Size x="255" y="250"/>
-							</Texture>
+						<Layer>
 							<Texture inherits="Friends_Item_Template">
 								<Anchors><Anchor x="45" y="-435"/></Anchors>
 							</Texture> 

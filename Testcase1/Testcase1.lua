@@ -15,6 +15,16 @@ function Testcase1:ShowFrame()
     MainFrame.Header.SBIR.Text:SetText("СИСТЕМА БОЯ И РАЗВИТИЯ")
     MainFrame.Header.Guidelines.Text:SetText("РУКОВОДСТВА")
 
+
+    MainFrame.Breadcrumbs.BreadcrumbForumThread.Text:SetText("Пользователи")
+    MainFrame.Breadcrumbs.BreadcrumbsForumThreadName.Text:SetText("SanityIs4TheWeak")
+    TextWidth = (MainFrame.Breadcrumbs.BreadcrumbForumThread.Text:GetWidth())
+    MainFrame.Breadcrumbs.BreadcrumbForumThread:SetWidth(TextWidth)
+    TextWidth = (MainFrame.Breadcrumbs.BreadcrumbsForumThreadName.Text:GetWidth())
+    MainFrame.Breadcrumbs.BreadcrumbsForumThreadName:SetWidth(TextWidth)
+
+    
+
     local TextWidth
     TextWidth = (MainFrame.Header.FAQ.Text:GetWidth())
     MainFrame.Header.FAQ:SetWidth(TextWidth)
