@@ -11,7 +11,7 @@
 	<Frame name="MainFrame" inherits="BackdropTemplate" parent="UIParent" hidden="true">
 		<Size x="1140" y="850"/>
 		<Anchors>
-		<Anchor point="CENTER"/>
+		<Anchor point="CENTER" relativePoint="CENTER"/>
 		</Anchors>
 		 <KeyValues><KeyValue key="backdropInfo" value="BACKDROP_DIALOG_32_32" keyType="string" type="global" /></KeyValues>
 
@@ -30,7 +30,7 @@
 				<Texture parentKey="Background" atlas="auctionhouse-background-index">
 				<Size x="1140" y="850"/>
 				<Anchors>
-					<Anchor point="CENTER"/>
+					<Anchor point="CENTER" relativeKey="$parent" relativePoint="CENTER"/>
 				</Anchors>
 				</Texture>
 			</Layer>
@@ -58,7 +58,7 @@
 		<Frame parentKey="Header">
 			<Size x="1120" y="60"/>
 			<Anchors>
-				<Anchor point="TOP"/>
+				<Anchor point="TOP" relativePoint="TOP"/>
 			</Anchors>
 			 <Layers>
 				<Layer level="BACKGROUND">
@@ -282,7 +282,7 @@
 				<Size x="255" y="70"/>
 							<Layers>
 								<Layer>
-									<Texture atlas="AdventureMap_TopBorder">
+									<Texture parentKey="Border" atlas="AdventureMap_TopBorder">
 										<Anchors><Anchor point="TOPLEFT" relativePoint="TOPLEFT" /></Anchors>
 										<Size x="255" y="70"/>
 									</Texture>
@@ -298,10 +298,10 @@
 									<Anchors>
 									<Anchor point="TOPLEFT" relativeKey="$parent.FriendsTag" relativePoint="BOTTOMLEFT" x="-10" y="-5"/>
 									</Anchors>
-									<Frames>
+									<!-- <Frames>
 										<Frame inherits="FriendsItemTemplate">
 										</Frame>
-									</Frames>
+									</Frames> -->
 								</Frame>
 							</Frames>
 				</Frame>
@@ -362,6 +362,11 @@
 							</FontString> 
 						</Layer>
 					</Layers>
+					<Scripts>
+						<OnMouseDown>
+							Testcase1:GetItemCount(MainFrame.Body.InputBox)
+						</OnMouseDown>
+					</Scripts>
 				</Button>
 			</Frames>	
 		</Frame>
