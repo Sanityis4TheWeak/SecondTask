@@ -5,6 +5,8 @@ function Testcase1:OnInitialize()
 	self:RegisterChatCommand("tc", "ShowFrame")
     self:RegisterChatCommand("tp", "ShowFrame")
     self:Print("Testcase is work")
+
+
 end
 
 function ChangeText(object, Text)
@@ -51,6 +53,7 @@ function Testcase1:ShowFrame()
 
 end
 
+
 function Testcase1:CreateRootItem()
     local FriendsContainer = MainFrame.Body.FriendsFrame.FriendsItemContainer
 
@@ -75,22 +78,16 @@ function Testcase1:CreateFramesFromTemplate(n)
     if not RootItem then
         RootItem = self:CreateRootItem()
     end
-	local items = {} 
 
 
-    local currentRow = 1;
-    local currentColumn = 0;
+    local ColumnCounter = 0;
     local previousItem = RootItem;
-
-    for i = 1, n do
-        if not items[currentRow] then
-            items[currentRow] = {}
-        end
-
+    local ItemsCounter = 0;
+    for i = 1, n-1 do
         local Item = CreateFrame("Frame", "Item" .. i, FriendsContainer, "FriendsItemTemplate")
 
         if i == 1 then
-            Item:SetPoint("TOPLEFT", RootItem,"TOPLEFT", 0,0);
+            Item:SetPoint("LEFT", RootItem,"RIGHT", 20,0);
              previousItem = Item;
         else
              Item:SetPoint("LEFT", previousItem, "RIGHT", 20, 0);
@@ -99,28 +96,18 @@ function Testcase1:CreateFramesFromTemplate(n)
          end
 
 
+        ItemsCounter = ItemsCounter + 1
+        print(ItemsCounter)
 
-        items[currentRow][currentColumn] = Item
-        currentColumn = currentColumn + 1;
 
+        if ItemsCounter %5 == 0 then
+        ColumnCounter = ColumnCounter +1
+        Item:SetPoint("TOPLEFT", FriendsContainer, "TOPLEFT", 0, -30*ColumnCounter);
+        previousItem = Item;
+        local currentHeight = MainFrame.Body.FriendsFrame:GetHeight()
+        MainFrame.Body.FriendsFrame:SetHeight(currentHeight+35)
+        MainFrame.Body.FriendsFrame.Border:SetHeight(currentHeight+35)
 
-        if currentColumn > 5 then
-
-            if currentRow >= 1 then
-                local currentHeight = MainFrame.Body.FriendsFrame:GetHeight()
-                MainFrame.Body.FriendsFrame:SetHeight(currentHeight + 35);
-                MainFrame.Body.FriendsFrame.Border:SetHeight(currentHeight + 35);
-                MainFrame:SetHeight(currentHeight + 35);
-            end;
-
-            currentColumn = 1
-            currentRow = currentRow + 1;
-            local previousRow = items[currentRow - 1]
-             if previousRow then
-                local firstInPreviousRow = previousRow[1];
-                Item:SetPoint("LEFT", RootItem, "LEFT", 0,0);
-                Item:SetPoint("TOP",firstInPreviousRow,"BOTTOM",0, -5);
-            end
         end
 
 
