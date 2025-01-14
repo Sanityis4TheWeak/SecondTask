@@ -7,7 +7,8 @@ function Testcase1:OnInitialize()
 	self:RegisterChatCommand("tc", "ShowFrame")
     self:RegisterChatCommand("tp", "ShowFrame")
     self:Print("Testcase is work")
-    self.framePool = CreateFramePool("Frame", nil, "FriendsItemTemplate");
+    local FriendsContainer = MainFrame.Body.FriendsFrame.FriendsItemContainer
+    self.framePool = CreateFramePool("Frame", FriendsContainer, "FriendsItemTemplate");
 
 end
 
@@ -56,23 +57,13 @@ function Testcase1:ShowFrame()
 end
 
 
-function Testcase1:CreateFriendsItem(PreviousItem, isRoot)
-    local FriendsContainer = MainFrame.Body.FriendsFrame.FriendsItemContainer
+function Testcase1:CreateFriendsItem()
     local Item = self.framePool:Acquire()
-      if isRoot then
-          Item:SetPoint("TOPLEFT", FriendsContainer, "TOPLEFT", 0, 0);
-      elseif PreviousItem then
-           Item:SetPoint("LEFT", PreviousItem, "RIGHT", 20, 0);
-      end
-      print(Item)
-      return Item
+    Item:Show()
+    print(Item)
+    return Item
   end
   
-  function Testcase1:CreateRootItem()
-      local RootItem = self:CreateFriendsItem(nil,true)
-      self.RootItem = RootItem
-      return RootItem
-  end
   
   
   function Testcase1:GetItemCount(object)
@@ -85,37 +76,30 @@ function Testcase1:CreateFriendsItem(PreviousItem, isRoot)
   end
   
   function Testcase1:CreateFramesFromTemplate(n)
-      local FriendsContainer = MainFrame.Body.FriendsFrame.FriendsItemContainer
-  
-       local RootItem = self.RootItem
-      if not RootItem then
-          RootItem = self:CreateRootItem()
-          self.RootItem = RootItem
-      end
-  
-      local ColumnCounter = 0;
-      local PreviousItem = RootItem;
-      local ItemsCounter = 0;
-      for i = 1, n-1 do
-        local Item = self:CreateFriendsItem(PreviousItem)
-           if not Item then
-              break
-          end
-  
-           if i == 1 then
-            PreviousItem = Item
-           end
-          ItemsCounter = ItemsCounter + 1
-          print(ItemsCounter)
-  
-          if ItemsCounter %5 == 0 then
-              ColumnCounter = ColumnCounter +1
-              Item:SetPoint("TOPLEFT", FriendsContainer, "TOPLEFT", 0, -30*ColumnCounter);
-              PreviousItem = Item;
-              local CurrentHeight = MainFrame.Body.FriendsFrame:GetHeight()
-              MainFrame.Body.FriendsFrame:SetHeight(CurrentHeight+35)
-              MainFrame.Body.FriendsFrame.Border:SetHeight(CurrentHeight+35)
-          end
-       PreviousItem = Item
-      end
-  end
+    local FriendsContainer = MainFrame.Body.FriendsFrame.FriendsItemContainer
+    local ColumnCounter = 0
+    local yOffset = 0
+    local xOffset = 0
+
+    for i = 1, n do
+        local Item = self:CreateFriendsItem()
+        if not Item then
+          break
+        end
+
+        Item:SetPoint("TOPLEFT", FriendsContainer, "TOPLEFT", xOffset, yOffset)
+
+        xOffset = xOffset + 40
+        if i % 5 == 0 then
+            xOffset = 0
+            yOffset = yOffset - 40
+            ColumnCounter = ColumnCounter + 1
+        end
+    end
+
+    print(i)
+
+    local currentHeight = MainFrame.Body.FriendsFrame:GetHeight()
+    MainFrame.Body.FriendsFrame:SetHeight(currentHeight + 35 * ColumnCounter)
+    MainFrame.Body.FriendsFrame.Border:SetHeight(currentHeight + 35 * ColumnCounter)
+end
