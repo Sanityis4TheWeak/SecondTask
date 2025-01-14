@@ -1,11 +1,13 @@
 Testcase1 = LibStub("AceAddon-3.0"):NewAddon("Testcase1", "AceConsole-3.0", "AceEvent-3.0" );
 
+Testcase1.framePool = nil
+
 function Testcase1:OnInitialize()
 	self:RegisterChatCommand("testcase", "ShowFrame")
 	self:RegisterChatCommand("tc", "ShowFrame")
     self:RegisterChatCommand("tp", "ShowFrame")
     self:Print("Testcase is work")
-
+    self.framePool = CreateFramePool("Frame", nil, "FriendsItemTemplate");
 
 end
 
@@ -54,62 +56,66 @@ function Testcase1:ShowFrame()
 end
 
 
-function Testcase1:CreateRootItem()
+function Testcase1:CreateFriendsItem(PreviousItem, isRoot)
     local FriendsContainer = MainFrame.Body.FriendsFrame.FriendsItemContainer
-
-    local RootItem = CreateFrame("Frame", "Root", FriendsContainer, "FriendsItemTemplate")
-    RootItem:SetPoint("TOPLEFT", FriendsContainer, "TOPLEFT", 0, 0);
-    self.RootItem = RootItem
-    return RootItem
-end
-function Testcase1:GetItemCount(object)
-    local n = tonumber(object:GetText())
-    if n then
-        self:CreateFramesFromTemplate(n)
-    else
-        return nil
-    end
-end
-
-function Testcase1:CreateFramesFromTemplate(n)
-    local FriendsContainer = MainFrame.Body.FriendsFrame.FriendsItemContainer
-
-     local RootItem = self.RootItem
-    if not RootItem then
-        RootItem = self:CreateRootItem()
-    end
-
-
-    local ColumnCounter = 0;
-    local previousItem = RootItem;
-    local ItemsCounter = 0;
-    for i = 1, n-1 do
-        local Item = CreateFrame("Frame", "Item" .. i, FriendsContainer, "FriendsItemTemplate")
-
-        if i == 1 then
-            Item:SetPoint("LEFT", RootItem,"RIGHT", 20,0);
-             previousItem = Item;
-        else
-             Item:SetPoint("LEFT", previousItem, "RIGHT", 20, 0);
-              Item:SetPoint("TOP",previousItem,"TOP",0,0);
-              previousItem = Item;
-         end
-
-
-        ItemsCounter = ItemsCounter + 1
-        print(ItemsCounter)
-
-
-        if ItemsCounter %5 == 0 then
-        ColumnCounter = ColumnCounter +1
-        Item:SetPoint("TOPLEFT", FriendsContainer, "TOPLEFT", 0, -30*ColumnCounter);
-        previousItem = Item;
-        local currentHeight = MainFrame.Body.FriendsFrame:GetHeight()
-        MainFrame.Body.FriendsFrame:SetHeight(currentHeight+35)
-        MainFrame.Body.FriendsFrame.Border:SetHeight(currentHeight+35)
-
-        end
-
-
-    end
-end
+    local Item = self.framePool:Acquire()
+      if isRoot then
+          Item:SetPoint("TOPLEFT", FriendsContainer, "TOPLEFT", 0, 0);
+      elseif PreviousItem then
+           Item:SetPoint("LEFT", PreviousItem, "RIGHT", 20, 0);
+      end
+      print(Item)
+      return Item
+  end
+  
+  function Testcase1:CreateRootItem()
+      local RootItem = self:CreateFriendsItem(nil,true)
+      self.RootItem = RootItem
+      return RootItem
+  end
+  
+  
+  function Testcase1:GetItemCount(object)
+      local n = tonumber(object:GetText())
+      if n then
+          self:CreateFramesFromTemplate(n)
+      else
+          return nil
+      end
+  end
+  
+  function Testcase1:CreateFramesFromTemplate(n)
+      local FriendsContainer = MainFrame.Body.FriendsFrame.FriendsItemContainer
+  
+       local RootItem = self.RootItem
+      if not RootItem then
+          RootItem = self:CreateRootItem()
+          self.RootItem = RootItem
+      end
+  
+      local ColumnCounter = 0;
+      local PreviousItem = RootItem;
+      local ItemsCounter = 0;
+      for i = 1, n-1 do
+        local Item = self:CreateFriendsItem(PreviousItem)
+           if not Item then
+              break
+          end
+  
+           if i == 1 then
+            PreviousItem = Item
+           end
+          ItemsCounter = ItemsCounter + 1
+          print(ItemsCounter)
+  
+          if ItemsCounter %5 == 0 then
+              ColumnCounter = ColumnCounter +1
+              Item:SetPoint("TOPLEFT", FriendsContainer, "TOPLEFT", 0, -30*ColumnCounter);
+              PreviousItem = Item;
+              local CurrentHeight = MainFrame.Body.FriendsFrame:GetHeight()
+              MainFrame.Body.FriendsFrame:SetHeight(CurrentHeight+35)
+              MainFrame.Body.FriendsFrame.Border:SetHeight(CurrentHeight+35)
+          end
+       PreviousItem = Item
+      end
+  end
