@@ -11,7 +11,7 @@
 	<Frame name="MainFrame" inherits="BackdropTemplate" parent="UIParent" hidden="true">
 		<Size x="1140" y="850"/>
 		<Anchors>
-		<Anchor point="CENTER"/>
+		<Anchor point="CENTER" relativePoint="CENTER"/>
 		</Anchors>
 		 <KeyValues><KeyValue key="backdropInfo" value="BACKDROP_DIALOG_32_32" keyType="string" type="global" /></KeyValues>
 
@@ -30,7 +30,7 @@
 				<Texture parentKey="Background" atlas="auctionhouse-background-index">
 				<Size x="1140" y="850"/>
 				<Anchors>
-					<Anchor point="CENTER"/>
+					<Anchor point="CENTER" relativeKey="$parent" relativePoint="CENTER"/>
 				</Anchors>
 				</Texture>
 			</Layer>
@@ -58,7 +58,7 @@
 		<Frame parentKey="Header">
 			<Size x="1120" y="60"/>
 			<Anchors>
-				<Anchor point="TOP"/>
+				<Anchor point="TOP" relativePoint="TOP"/>
 			</Anchors>
 			 <Layers>
 				<Layer level="BACKGROUND">
@@ -67,7 +67,7 @@
 				</Layer> 
 			 </Layers> 
 			<Frames>
-				<Frame parentKey="FAQ" inherits="HeaderItemTemplate">
+				<Frame parentKey="FAQ" inherits="NavItemTemplate">
 				<Anchors><Anchor point="LEFT" x="20" /></Anchors>
 				</Frame>
 
@@ -186,31 +186,172 @@
 					</Layers>
 				</Frame>
 
-				<Frame parentKey="NavProfile" inherits="HeaderItemTemplate">
-				<Anchors><Anchor point="TOPLEFT" relativeKey="$parent.InputBox" relativePoint="BOTTOMLEFT" x="20" /></Anchors>
+				<!-- PROFILE NAVIGATION -->
+				<Frame parentKey="ProfileNavigation">
+				<Anchors><Anchor point="TOPLEFT" relativeKey="$parent.InputBox" relativePoint="BOTTOMLEFT" y="-10" /></Anchors>
+				<Size x="1000" y="10"/>
+					<Frames>
+						<Frame parentKey="MyProfile" inherits="NavItemTemplate">
+						<Anchors><Anchor point="LEFT"  relativePoint="BOTTOMLEFT" x="15"/></Anchors>
+						</Frame>
+						
+						<Frame parentKey="MyThread" inherits="NavItemTemplate">
+						<Anchors><Anchor point="LEFT" relativeKey="$parent.MyProfile" relativePoint="RIGHT" x="50" /></Anchors>
+						</Frame>
+				
+						<Frame parentKey="MyFriends" inherits="NavItemTemplate">
+						<Anchors><Anchor point="LEFT" relativeKey="$parent.MyThread" relativePoint="RIGHT" x="50" /></Anchors>
+						</Frame>
+
+						<Frame parentKey="MyComments" inherits="NavItemTemplate">
+						<Anchors><Anchor point="LEFT" relativeKey="$parent.MyFriends" relativePoint="RIGHT" x="50" /></Anchors>
+						</Frame>
+
+						<Frame parentKey="MyReputation" inherits="NavItemTemplate">
+						<Anchors><Anchor point="LEFT" relativeKey="$parent.MyComments" relativePoint="RIGHT" x="50"/></Anchors>
+						</Frame>
+
+						<Frame parentKey="MyIntegrations" inherits="NavItemTemplate">
+						<Anchors><Anchor point="LEFT" relativeKey="$parent.MyReputation" relativePoint="RIGHT" x="50" /></Anchors>
+						</Frame>
+					</Frames>
+				</Frame>
+				<Frame parentkey="AfterNavStrip" inherits="StripLine">
+					<Size x="1110" y="10"/>
+					<Anchors><Anchor point="CENTER" relativeKey="$parent.ProfileNavigation" relativePoint="Bottom" x="5" y="-20"/></Anchors>
+				</Frame>
+				<!-- PROFILE INFORMATION -->
+				<Frame parentKey="ProfileInformation">
+					<Anchors><Anchor point="TOPLEFT" relativeKey="$parent.AfterNavStrip" relativePoint="BOTTOMLEFT"/></Anchors>
+					<Size x="1140" y="250"/>
+					<Frames>
+						<Frame parentKey="ProfileImage">
+							<Anchors><Anchor point="TOPLEFT" relativeKey="$parent.AfterNavStrip" relativePoint="TOPLEFT" x="30" y="-10"/></Anchors>
+							<Size x="255" y="250"/>
+							<Layers>	
+								<Layer>
+									<Texture atlas="Azerite-CenterBG-ChannelGlowBar-Effect"></Texture>
+								</Layer>
+							</Layers>
+						</Frame>
+						<Frame parentKey="ProfileInformation">
+						<Anchors><Anchor point="TOPLEFT" relativeKey="$parent.ProfileImage" relativePoint="TOPRIGHT" x="30" y="-10"/></Anchors>
+						<Size x="255" y="250"/>
+							<Frames>
+								<Frame parentKey="MyProfileRegistration" inherits="ContextItemTemplate">
+								<Anchors><Anchor point="TOPLEFT" relativePoint="TOPLEFT"/></Anchors>
+								</Frame>
+									<Frame parentKey="MyProfileRegistrationText" inherits="NavItemTemplate">
+									<Anchors><Anchor point="LEFT" relativeKey="$parent.MyProfileRegistration" relativePoint="RIGHT" x="10" /></Anchors>
+									</Frame>
+									
+								<Frame parentKey="MyProfileGroups" inherits="ContextItemTemplate">
+								<Anchors><Anchor point="TOPLEFT" relativeKey="$parent.MyProfileRegistration" relativePoint="BOTTOMLEFT" y="-10" /></Anchors>
+								</Frame>
+									<Frame parentKey="MyProfileGroupsText" inherits="NavItemTemplate">
+									<Anchors><Anchor point="LEFT" relativeKey="$parent.MyProfileGroups" relativePoint="RIGHT" x="10" /></Anchors>
+									</Frame>
+
+								<Frame parentKey="MyProfileCity" inherits="ContextItemTemplate">
+								<Anchors><Anchor point="TOPLEFT" relativeKey="$parent.MyProfileGroups" relativePoint="BOTTOMLEFT" y="-10" /></Anchors>
+								</Frame>
+									<Frame parentKey="MyProfileCityText" inherits="NavItemTemplate">
+									<Anchors><Anchor point="LEFT" relativeKey="$parent.MyProfileCity" relativePoint="RIGHT" x="10" /></Anchors>
+									</Frame>
+
+								<Frame parentKey="MyProfileSex" inherits="ContextItemTemplate">
+								<Anchors><Anchor point="TOPLEFT" relativeKey="$parent.MyProfileCity" relativePoint="BOTTOMLEFT" y="-10" /></Anchors>
+								</Frame>
+									<Frame parentKey="MyProfileSexText" inherits="NavItemTemplate">
+									<Anchors><Anchor point="LEFT" relativeKey="$parent.MyProfileSex" relativePoint="RIGHT" x="10" /></Anchors>
+									</Frame>
+
+								<Frame parentKey="MyProfileSkype" inherits="ContextItemTemplate">
+								<Anchors><Anchor point="TOPLEFT" relativeKey="$parent.MyProfileSex" relativePoint="BOTTOMLEFT" y="-10" /></Anchors>
+								</Frame>
+									<Frame parentKey="MyProfileSkypeText" inherits="NavItemTemplate">
+									<Anchors><Anchor point="LEFT" relativeKey="$parent.MyProfileSkype" relativePoint="RIGHT" x="10" /></Anchors>
+									</Frame>
+
+							</Frames>
+						</Frame>
+					</Frames>
+				</Frame>
+				<Frame parentKey="FriendsFrame">
+				<Anchors><Anchor point="TOPLEFT" relativeKey="$parent.ProfileInformation" relativePoint="BOTTOMLEFT" x="30" y="-10"/></Anchors>
+				<Size x="255" y="70"/>
+							<Layers>
+								<Layer>
+									<Texture parentKey="Border" atlas="AdventureMap_TopBorder">
+										<Anchors><Anchor point="TOPLEFT" relativePoint="TOPLEFT" /></Anchors>
+										<Size x="255" y="70"/>
+									</Texture>
+								</Layer>
+							</Layers>
+							<Frames>
+								<Frame parentKey="FriendsTag" inherits="NavItemTemplate">
+								<Anchors><Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="20" y="-5" /></Anchors>
+								</Frame>
+								
+								<Frame parentKey="FriendsItemContainer">
+									<Size x="255" y="50"/>
+									<Anchors>
+									<Anchor point="TOPLEFT" relativeKey="$parent.FriendsTag" relativePoint="BOTTOMLEFT" x="-10" y="-5"/>
+									</Anchors>
+									<!-- <Frames>
+										<Frame inherits="FriendsItemTemplate">
+										</Frame>
+									</Frames> -->
+								</Frame>
+							</Frames>
 				</Frame>
 
-				
-				<Frame parentKey="FriendsFrame">
-					<Layers>
-						<Layer>
-							<Texture inherits="Friends_Item_Template">
-								<Anchors><Anchor x="45" y="-435"/></Anchors>
-							</Texture> 
-							<Texture inherits="Friends_Item_Template">
-								<Anchors><Anchor x="80" y="-435"/></Anchors>
-							</Texture> 
-							<FontString text="ДРУЗЬЯ" inherits="MyFont"> 
-								<Size x="70" y="20"/> 
-								<Anchors> 
-									<Anchor point="TOPLEFT" x="40" y="-405"/> 
-								</Anchors> 
-							</FontString> 
-						</Layer>
-					</Layers>
+				<Frame parentKey="CharactersFrame">
+				<Anchors><Anchor point="TOPLEFT" relativeKey="$parent.FriendsFrame" relativePoint="BOTTOMLEFT"/></Anchors>
+				<Size x="255" y="40"/>
+				<Frames>
+					<Frame parentKey="CharactersTag" inherits="NavItemTemplate">
+					<Anchors><Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="20" y="-5" /></Anchors>
+					</Frame>
+				</Frames>
+				<Layers>
+					<Layer>
+						<Texture atlas="AdventureMap_TopBorder">
+							<Size x="255" y="40"/>
+						</Texture>
+					</Layer>
+				</Layers>
 				</Frame>
+
+				<Frame parentKey="EventsFrame">
+				<Anchors><Anchor point="TOPLEFT" relativeKey="$parent.CharactersFrame" relativePoint="BOTTOMLEFT"/></Anchors>
+				<Size x="255" y="40"/>
+				<Frames>
+					<Frame parentKey="EventsTag" inherits="NavItemTemplate">
+					<Anchors><Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="20" y="-5" /></Anchors>
+					</Frame>
+
+					<Frame parentkey="AfterNavStrip" inherits="StripLine">
+					<Size x="1110" y="10"/>
+					<Anchors><Anchor point="TOPLEFT" relativeKey="$parent.EventsFrame" relativePoint="BOTTOMLEFT" x="-30" y="-20"/></Anchors>
+				</Frame>
+				</Frames>
+				<Layers>
+					<Layer>
+						<Texture atlas="AdventureMap_TopBorder">
+							<Size x="255" y="40"/>
+						</Texture>
+					</Layer>
+				</Layers>
+				</Frame>
+				
+				<Frame parentKey="PageWriteTag" inherits="ContextItemTemplate">
+				<Anchors><Anchor point="TOPLEFT" relativeKey="$parent.EventsFrame.AfterNavStrip" relativePoint="BOTTOMLEFT" x="20" /></Anchors>
+				<Size x="200" y="40"/>
+				</Frame>
+
 				<Button parentKey="PageWriteButton" name="PageWrite">
-					<Anchors><Anchor point="RIGHT" y="-210" /></Anchors>
+					<Anchors><Anchor point="TOPRIGHT" relativeKey="$parent.EventsFrame.AfterNavStrip" relativePoint="BOTTOMRIGHT" /></Anchors>
 					<Size x="175" y="40"/>
 					<Layers>
 						<Layer level="BACKGROUND">
@@ -221,184 +362,14 @@
 							</FontString> 
 						</Layer>
 					</Layers>
+					<Scripts>
+						<OnMouseDown>
+							Testcase1:GetItemCount(MainFrame.Body.InputBox)
+						</OnMouseDown>
+					</Scripts>
 				</Button>
-			</Frames>
-			<Layers> 
-
-
-
-
-				<Layer name="Body_top" level="ARTWORK"> 
-					<FontString text="ПРОФИЛЬ" inherits="MyFont"> 
-						<Size x="100" y="100"/> 
-						<Anchors> 
-							<Anchor point="TOPLEFT" x="40" y="-70"/> 
-						</Anchors> 
-					</FontString> 
-					<FontString text="МОЯ ЛЕНТА" inherits="MyFont"> 
-						<Size x="100" y="100"/> 
-						<Anchors> 
-							<Anchor point="TOPLEFT" x="140" y="-70"/> 
-						</Anchors> 
-					</FontString> 
-					<FontString text="ДРУЗЬЯ" inherits="MyFont"> 
-						<Size x="100" y="100"/> 
-						<Anchors> 
-							<Anchor point="TOPLEFT" x="230" y="-70"/> 
-						</Anchors> 
-					</FontString> 
-					<FontString text="КОММЕНТАРИИ" inherits="MyFont"> 
-						<Size x="120" y="100"/> 
-						<Anchors> 
-							<Anchor point="TOPLEFT" x="320" y="-70"/> 
-						</Anchors> 
-					</FontString> 
-					<FontString text="РЕПУТАЦИЯ" inherits="MyFont"> 
-						<Size x="120" y="100"/> 
-						<Anchors> 
-							<Anchor point="TOPLEFT" x="425" y="-70"/> 
-						</Anchors> 
-					</FontString> 
-					<FontString text="ИНТЕГРАЦИИ" inherits="MyFont"> 
-						<Size x="120" y="100"/> 
-						<Anchors> 
-							<Anchor point="TOPLEFT" x="520" y="-70"/> 
-						</Anchors> 
-					</FontString> 
-					<Texture atlas="_AnimaChannel-Channel-Line-horizontal">
-						<Size x="1110" y="5"/> 
-						<Anchors> 
-							<Anchor point="CENTER" x="10" y="230"/> 
-						</Anchors> 
-					</Texture>
-				</Layer> 
-
-				<Layer>
-					<Texture atlas="Azerite-CenterBG-ChannelGlowBar-Effect">
-						<Anchors><Anchor point="TOPLEFT" x="40" y="-150"/></Anchors>
-						<Size x="255" y="250"/>
-					</Texture>
-					<Texture atlas="_AnimaChannel-Channel-Line-horizontal">
-						<Size x="50" y="3"/> 
-						<Anchors> 
-							<Anchor point="TOPLEFT" x="50" y="-420"/> 
-						</Anchors> 
-					</Texture>
-					<FontString text="АНКЕТЫ" inherits="MyFont"> 
-						<Size x="70" y="20"/> 
-						<Anchors> 
-							<Anchor point="TOPLEFT" x="40" y="-480"/> 
-						</Anchors> 
-					</FontString> 
-					<FontString text="СОБЫТИЯ" inherits="MyFont"> 
-						<Size x="80" y="20"/> 
-						<Anchors> 
-							<Anchor point="TOPLEFT" x="40" y="-520"/> 
-						</Anchors> 
-					</FontString> 
-
-					<!-- БЛОК С АНКЕТНЫМИ ЗАГОЛОВКАМИ -->
-					<FontString text="Регистрация:" inherits="GameFontNormalLarge"> 
-						<Size x="140" y="20"/> 
-						<Anchors> 
-							<Anchor point="TOPLEFT" x="310" y="-150"/> 
-						</Anchors> 
-					</FontString> 
-					<FontString text="Группы:" inherits="GameFontNormalLarge"> 
-						<Size x="100" y="20"/> 
-						<Anchors> 
-							<Anchor point="TOPLEFT" x="310" y="-175"/> 
-						</Anchors> 
-					</FontString> 
-					<FontString text="Город:" inherits="GameFontNormalLarge"> 
-						<Size x="90" y="20"/> 
-						<Anchors> 
-							<Anchor point="TOPLEFT" x="310" y="-200"/> 
-						</Anchors> 
-					</FontString> 
-					<FontString text="Пол:" inherits="GameFontNormalLarge"> 
-						<Size x="75" y="20"/> 
-						<Anchors> 
-							<Anchor point="TOPLEFT" x="310" y="-225"/> 
-						</Anchors> 
-					</FontString> 
-					<FontString text="Skype:" inherits="GameFontNormalLarge"> 
-						<Size x="90" y="20"/> 
-						<Anchors> 
-							<Anchor point="TOPLEFT" x="310" y="-250"/> 
-						</Anchors> 
-					</FontString> 
-					<!-- БЛОК С АНКЕТНЫМИ ОТВЕТАМИ -->
-					<FontString text="6 лет назад" inherits="MyFont"> 
-						<Size x="90" y="20"/> 
-						<Anchors> 
-							<Anchor point="TOPLEFT" x="420" y="-150"/> 
-						</Anchors> 
-					</FontString> 
-					<FontString text="Дуумвират" inherits="MyFont"> 
-						<Size x="90" y="20"/> 
-						<Anchors> 
-							<Anchor point="TOPLEFT" x="380" y="-175"/> 
-						</Anchors> 
-					</FontString> 
-					<FontString text="Брилл" inherits="MyFont"> 
-						<Size x="90" y="20"/> 
-						<Anchors> 
-							<Anchor point="TOPLEFT" x="360" y="-200"/> 
-						</Anchors> 
-					</FontString> 
-					<FontString text="Мужской" inherits="MyFont"> 
-						<Size x="90" y="20"/> 
-						<Anchors> 
-							<Anchor point="TOPLEFT" x="360" y="-225"/> 
-						</Anchors> 
-					</FontString> 
-					<FontString text="123123213" inherits="MyFont"> 
-						<Size x="90" y="20"/> 
-						<Anchors> 
-							<Anchor point="TOPLEFT" x="380" y="-250"/> 
-						</Anchors> 
-					</FontString> 
-				</Layer>
-				<Layer name="Body_bottom">
-					<Texture atlas="_AnimaChannel-Channel-Line-horizontal">
-						<Size x="1110" y="5"/> 
-						<Anchors> 
-							<Anchor point="CENTER" x="10" y="-185"/> 
-						</Anchors> 
-					</Texture>
-					<FontString text="СТЕНА ПОЛЬЗОВАТЕЛЯ" inherits="MyFont"> 
-						<Size x="200" y="20"/> 
-						<Anchors> 
-							<Anchor point="TOPLEFT" x="20" y="-570"/> 
-						</Anchors> 
-					</FontString> 
-				</Layer>
-				<Layer level="BORDER">
-					<Texture atlas="auctionhouse-itemicon-cover">
-						<Size x="100" y="40"/> 
-						<Anchors> 
-							<Anchor point="TOPLEFT" x="40" y="-100"/> 
-						</Anchors> 
-					</Texture>
-					<Texture atlas="AdventureMap_TopBorder">
-						<Anchors><Anchor point="TOPLEFT" x="40" y="-400"/></Anchors>
-						<Size x="255" y="70"/>
-					</Texture>
-					<Texture atlas="AdventureMap_TopBorder">
-						<Anchors><Anchor point="TOPLEFT" x="40" y="-470"/></Anchors>
-						<Size x="255" y="40"/>
-					</Texture>
-					<Texture atlas="AdventureMap_TopBorder">
-						<Anchors><Anchor point="TOPLEFT" x="40" y="-510"/></Anchors>
-						<Size x="255" y="40"/>
-					</Texture>
-				</Layer>
-			</Layers> 
+			</Frames>	
 		</Frame>
 		</Frames>
-		<!-- <Scripts>
-			<OnUpdate>Testcase1:WidthSetter()</OnUpdate>
-		</Scripts> -->
 	</Frame>
 </Ui>
