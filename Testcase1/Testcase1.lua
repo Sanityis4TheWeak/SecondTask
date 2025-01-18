@@ -71,14 +71,21 @@ function FriendStatusMixin:FriendStatus()
 end
 
 function FriendStatusMixin:ShowOnlineTooltip()
+    GameTooltip:SetOwner(self, "ANCHOR_TOP", 0, 5)
     if self:FriendStatus() == true then 
-        print("В  сети")
+        GameTooltip:ClearLines()
+        GameTooltip:AddLine("В сети")
     else
-        print("Не в  сети")
+        GameTooltip:ClearLines()
+        GameTooltip:AddLine("Не в сети")
     end
-end
+    GameTooltip:Show()
+end 
 
 
+function FriendStatusMixin:HideOnlineTooltip()
+    GameTooltip:Hide()
+end 
 
 
 

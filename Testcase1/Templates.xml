@@ -23,6 +23,9 @@
 		<OnEnter>
 			self:ShowOnlineTooltip()
 		</OnEnter>
+		<OnLeave>
+			self:HideOnlineTooltip()
+		</OnLeave>
 	</Scripts>
 	</Frame>
 	<Frame name="StripLine" virtual="true">
